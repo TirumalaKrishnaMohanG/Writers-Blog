@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>View Page</title>
+	<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css">
+	<style>
+	.text {
+	  display: block;
+	  width: 1000px;
+	  overflow: hidden;
+	  white-space: normal;
+	  text-overflow: ellipsis;
+	}
+    .tab1 {
+        tab-size: 2;
+    }
+
+    .tab2 {
+        tab-size: 4;
+    }
+
+    .tab4 {
+        tab-size: 19;
+    }
+    </style>
+</head>
+<body>
+	<header class="text-gray-600 body-font">
+	  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+	    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+	      <span class="iconify" data-icon="flat-color-icons:address-book" data-width="34" data-height="34"></span>
+	      <span class="ml-3 text-xl">Writer's <i> Story </i></span>
+	    </a>
+	    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+	      <a class="mr-5 hover:text-gray-900">Back To Stories</a>
+	    </nav>
+	    <a  href="{% url 'home' %}"class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Click Here
+	    </a>
+	  </div>
+	</header>
+	<br>
+
+	<!-- Test -->
+	<div class="flex h-screen">
+	<div class="mx-auto">
+	<!-- Blog Home -->
+		<pre><b>Title</b>:<span class="text"> {{ getInfo.title }} </span></pre>
+		<pre><b>Story</b>:<br><span class="text"> {{ getInfo.story }} </span></pre>
+		<br>
+		<pre><b>Author</b>: By {{ getInfo.name }} on the following date, {{ getInfo.date }}</pre>
+		<pre><b>Write to me</b>: {{ getInfo.email }} </pre>
+		<hr><br>
+		<!-- Comment Form -->
+		<!-- Form -->
+		<form action="{% url 'comment' %}" method="POST" >
+		{% csrf_token %}
+		<section class="text-gray-600 body-font">
+		  <div class="mx-auto">
+		    <div class="flex flex-col text-center w-full mb-1">
+		      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Write Here</h1>
+		    </div>
+		    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+		      <div class="flex flex-wrap -m-2">
+		      	<div class="p-2 w-full">
+		          <div class="relative">
+		            <label for="name" class="leading-7 text-sm text-gray-600">URL Path</label>
+		            <span class="text"><input type="text" id="name" name="path" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="{{ request.get_full_path }}"> {{ x.story }} </input></span>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="flex flex-wrap -m-2">
+		      	<div class="p-2 w-full">
+		          <div class="relative">
+		            <label for="name" class="leading-7 text-sm text-gray-600">Commented to the following Story</label>
+		            <input type="text" id="name" name="getstory" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="{{ getInfo.story }}"></div>
+		          </div>
+		        </div>
+		      <div class="flex flex-wrap -m-2">
+		      	<div class="p-2 w-full">
+		          <div class="relative">
+		            <label for="name" class="leading-7 text-sm text-gray-600">Message ID</label>
+		            <input type="text" id="name" name="getid" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="{{ getInfo.refid }}"></div>
+		          </div>
+		        </div>
+		        <div class="p-2 w-full">
+		          <div class="relative">
+		            <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+		            <input type="text" id="name" name="getName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+		          </div>
+		        </div>
+		        <div class="p-2 w-full">
+		          <div class="relative">
+		            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+		            <textarea id="message" name="getfeedback" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+		          </div>
+		        </div>
+		        <div class="p-2 w-full">
+		          <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Comment Here</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</section>
+	</div>
+	</div>
+	<center><hr style="width:1000px; margin: auto;" /></center>
+
+	<!-- Comment Section -->
+	<div class="flex">
+	<div class="m-auto">
+		{% for x in dataInfo %}
+			{% if x.refid == getInfo.refid %}
+				<pre><b>{{ x.name }}</b> has commented <span class="text"> {{ x.feedback }}</span></pre>
+			{% endif %}
+		{% endfor %}
+	</div>
+	</div>
+</body>
+</html>
